@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.details.StepDescriptionFragment">
+
+    <FrameLayout
+        android:id="@+id/fr_media_holder"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_video"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.exoplayer2.ui.PlayerView
+            android:id="@+id/exo_player_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:show_timeout="4000"
+            app:fastforward_increment="500"
+            app:rewind_increment="500" />
+
+        <ImageView
+            android:id="@+id/img_stepdesc_media_preview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/txt_media_desciption"
+            android:scaleType="centerCrop"
+            android:src="@drawable/media_not_found"
+            android:visibility="invisible" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tv_stepdec_description"
+        style="@style/recipe_name_style"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/txt_regular"
+        app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fr_media_holder"
+        tools:text="cook food and look good" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorPrimaryLight"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline_bottom">
+
+        <ImageView
+            android:id="@+id/img_prev_step"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/box_medium"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/txt_prev_step"
+            android:padding="@dimen/margin_large"
+            app:srcCompat="@drawable/ic_arrow_back" />
+
+        <TextView
+            android:id="@+id/tv_step_position"
+            style="@style/recipe_name_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/txt_regular"
+            tools:ignore="RelativeOverlap"
+            tools:text="Step 1 of 8" />
+
+        <ImageView
+            android:id="@+id/img_next_step"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/box_medium"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/txt_next_step"
+            android:padding="@dimen/margin_large"
+            app:srcCompat="@drawable/ic_arrow_forward" />
+    </RelativeLayout>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_video"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="@integer/portrait_video_guideline"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="@integer/portrait_control_guideline"
+        app:layout_constraintTop_toTopOf="parent" />
+</android.support.constraint.ConstraintLayout>

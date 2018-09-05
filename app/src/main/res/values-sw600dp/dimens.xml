@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    // Text related
+    <dimen name="txt_regular">30sp</dimen>
+
+    // misc
+    <dimen name="recipe_card_height">400dp</dimen>
+</resources>

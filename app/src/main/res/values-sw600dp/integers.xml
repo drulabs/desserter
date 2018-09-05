@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="span_count">2</integer>
+
+    <item name="portrait_video_guideline" type="integer" format="float">0.50</item>
+    <item name="portrait_control_guideline" type="integer" format="float">0.90</item>
+</resources>

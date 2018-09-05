@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="anim_duration_medium">500</integer>
+    <integer name="anim_duration_offset">200</integer>
+    <integer name="span_count">1</integer>
+
+    <item name="portrait_video_guideline" type="integer" format="float">0.40</item>
+    <item name="portrait_control_guideline" type="integer" format="float">0.90</item>
+</resources>

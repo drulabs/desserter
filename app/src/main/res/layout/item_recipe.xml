@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fl_recipe_card_holder"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/recipe_card_height"
+    android:layout_margin="@dimen/margin_large"
+    android:background="@drawable/bg_rounded">
+
+    <TextView
+        android:id="@+id/tv_recipe_name"
+        style="@style/recipe_name_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        tools:text="Nutella Pie" />
+</FrameLayout>

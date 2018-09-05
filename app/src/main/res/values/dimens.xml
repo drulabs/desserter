@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    // Margin related
+    <dimen name="margin_medium">8dp</dimen>
+    <dimen name="margin_small">4dp</dimen>
+    <dimen name="margin_large">12dp</dimen>
+    <dimen name="margin_huge">24dp</dimen>
+
+    // Text related
+    <dimen name="txt_x_large">36sp</dimen>
+    <dimen name="txt_large">30sp</dimen>
+    <dimen name="txt_regular">20sp</dimen>
+    <dimen name="txt_medium">16sp</dimen>
+
+    // Box
+    <dimen name="box_medium">60dp</dimen>
+
+    // misc
+    <dimen name="recipe_card_height">150dp</dimen>
+    <dimen name="recipe_step_height">150dp</dimen>
+</resources>
