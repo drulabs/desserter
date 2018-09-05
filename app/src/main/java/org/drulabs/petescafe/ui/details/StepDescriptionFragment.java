@@ -41,7 +41,7 @@ public class StepDescriptionFragment extends Fragment {
     // class vars
     int totalSteps = 0;
     private int currentStepId;
-    private DetailVM detailVM;
+    DetailVM detailVM;
 
     private ExoPlayer player;
 

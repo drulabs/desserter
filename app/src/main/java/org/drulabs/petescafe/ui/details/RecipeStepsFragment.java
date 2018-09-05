@@ -30,7 +30,7 @@ public class RecipeStepsFragment extends Fragment implements StepsAdapter.StepSe
     private String strIngredients;
     private String recipeName;
 
-    private DetailVM detailVM;
+    DetailVM detailVM;
 
     public RecipeStepsFragment() {
         // Required empty public constructor
