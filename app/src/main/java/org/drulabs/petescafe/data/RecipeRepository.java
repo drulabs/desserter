@@ -1,6 +1,8 @@
 package org.drulabs.petescafe.data;
 
 import android.arch.lifecycle.LiveData;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import org.drulabs.petescafe.data.local.RecipeDAO;
@@ -20,6 +22,8 @@ public class RecipeRepository {
 
     private static final long CACHE_EXPIRY_MILLIS = 60 * 1000; // 1 minute
     private static final String TAG = "Repository";
+    private static final String PREFS_NAME = "prefs_repository";
+    private static final String KEY_PREFS_RECIPE_ID = "current_recipe_id";
 
     private long lastCacheFetched = 0;
 
@@ -28,15 +32,18 @@ public class RecipeRepository {
 
     private LiveData<List<Recipe>> recipes;
 
+    private SharedPreferences preferences;
+
     private CompositeDisposable disposables;
 
     @Inject
-    RecipeRepository(RecipeApi recipeApi, RecipeDAO recipeDAO) {
+    RecipeRepository(Context context, RecipeApi recipeApi, RecipeDAO recipeDAO) {
         this.recipeApi = recipeApi;
         this.recipeDAO = recipeDAO;
 
         this.recipes = recipeDAO.getRecipes();
         this.disposables = new CompositeDisposable();
+        this.preferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
     }
 
     /**
@@ -72,6 +79,27 @@ public class RecipeRepository {
      * @return {@link Recipe} object
      */
     public LiveData<Recipe> getRecipe(int recipeId) {
+        return recipeDAO.getRecipe(recipeId);
+    }
+
+    /**
+     * Saves a recipe in preferences
+     *
+     * @param recipeId id of the {@link Recipe} to be saved
+     */
+    public void saveCurrentRecipeId(int recipeId) {
+        preferences.edit()
+                .putInt(KEY_PREFS_RECIPE_ID, recipeId)
+                .apply();
+    }
+
+    /**
+     * Retrieves the recipe saved via {@link RecipeRepository#saveCurrentRecipeId(int)}
+     *
+     * @return the saved {@link Recipe} or null if not found
+     */
+    public LiveData<Recipe> getSavedRecipe() {
+        int recipeId = preferences.getInt(KEY_PREFS_RECIPE_ID, 0);
         return recipeDAO.getRecipe(recipeId);
     }
 

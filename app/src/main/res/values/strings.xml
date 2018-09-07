@@ -7,6 +7,7 @@
     <string name="txt_prev_step">Previous step</string>
     <string name="txt_media_desciption">Recipe media image</string>
     <string name="txt_ingredients">Ingredients</string>
-    <string name="txt_ingredients_format">Ingredients for %s</string>
+    <string name="txt_ingredients_format">Ingredients for %s (%d servings)</string>
     <string name="txt_okay">Okay</string>
+    <string name="txt_servings">For %d servings</string>
 </resources>

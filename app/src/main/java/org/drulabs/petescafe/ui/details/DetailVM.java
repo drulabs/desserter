@@ -62,6 +62,10 @@ public class DetailVM extends ViewModel {
         this.playing = playing;
     }
 
+    public void resetPLaybackPosition() {
+        this.playbackPosition = 0;
+    }
+
     public boolean isPlaying() {
         return playing;
     }

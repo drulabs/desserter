@@ -11,6 +11,7 @@ import android.support.v4.media.session.PlaybackStateCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,6 +24,7 @@ import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
+import com.squareup.picasso.Picasso;
 
 import org.drulabs.petescafe.R;
 import org.drulabs.petescafe.data.model.RecipeStep;
@@ -35,8 +37,6 @@ public class StepDescriptionFragment extends Fragment {
 
     private static final String TAG = "StepDesc";
     private static final String KEY_CURRENT_STEP_ID = "current_step";
-    private static final String KEY_PLAYBACK_POSITION = "playback_position";
-    private static final String KEY_IS_PLAYING = "is_playing";
 
     // class vars
     int totalSteps = 0;
@@ -92,12 +92,38 @@ public class StepDescriptionFragment extends Fragment {
 
                 releasePlayer();
 
-                if (!recipeStep.getVideoURL().isEmpty() || !recipeStep.getThumbnailURL().isEmpty()) {
+                if (recipeStep.getVideoURL().isEmpty() && recipeStep.getThumbnailURL().isEmpty()) {
+                    // neither video nor image asset available
+                    imgPreview.setVisibility(View.VISIBLE);
+                    playerView.setVisibility(View.GONE);
+                } else if (!recipeStep.getVideoURL().isEmpty()) {
                     // Initialize the player
                     initializePlayer(recipeStep);
                     imgPreview.setVisibility(View.GONE);
+                    playerView.setVisibility(View.VISIBLE);
+                } else if (!recipeStep.getThumbnailURL().isEmpty()) {
+                    // Check if thumbnail image url is actually image via mime types
+                    String thumbUrl = recipeStep.getThumbnailURL();
+                    String extension = MimeTypeMap.getFileExtensionFromUrl(thumbUrl);
+                    String type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
+                    if (type != null && type.startsWith("image/")) {
+                        Picasso.get().load(recipeStep.getThumbnailURL())
+                                .error(R.drawable.media_not_found)
+                                .into(imgPreview);
+                        imgPreview.setVisibility(View.VISIBLE);
+                        playerView.setVisibility(View.GONE);
+                    } else if (type != null && type.startsWith("video/")) {
+                        // Initialize the player
+                        initializePlayer(recipeStep);
+                        playerView.setVisibility(View.VISIBLE);
+                        imgPreview.setVisibility(View.GONE);
+                    } else {
+                        imgPreview.setVisibility(View.VISIBLE);
+                        playerView.setVisibility(View.GONE);
+                    }
                 } else {
                     imgPreview.setVisibility(View.VISIBLE);
+                    playerView.setVisibility(View.GONE);
                 }
 
                 if (currentStepId == 0 && currentStepId < totalSteps) {

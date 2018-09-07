@@ -33,6 +33,8 @@ public class RecipeListFragment extends Fragment implements RecipeListAdapter.Re
     private RecipeListAdapter adapter;
     private int columns = Constants.DEFAULT_SPAN_COUNT;
 
+    HomeVM homeVM;
+
     public RecipeListFragment() {
         // Required empty public constructor
     }
@@ -61,7 +63,7 @@ public class RecipeListFragment extends Fragment implements RecipeListAdapter.Re
                 .appComponent(((CafeApp) getActivity().getApplicationContext()).getAppComponent())
                 .build();
         HomeVMFactory homeVMFactory = viewComponent.getHomeVMFactory();
-        HomeVM homeVM = ViewModelProviders.of(this, homeVMFactory)
+        homeVM = ViewModelProviders.of(this, homeVMFactory)
                 .get(HomeVM.class);
         homeVM.getRecipes().observe(this, recipes -> {
             if (recipes != null && !recipes.isEmpty()) {
@@ -113,11 +115,13 @@ public class RecipeListFragment extends Fragment implements RecipeListAdapter.Re
 
     @Override
     public void onTapped(Recipe recipe) {
+        homeVM.saveAsCurrentRecipe(recipe);
         mListener.onRecipeSelected(recipe);
     }
 
     public interface OnFragmentInteractionListener {
         void onRecipeSelected(Recipe recipe);
+
         void onRecipesFetched();
     }
 }

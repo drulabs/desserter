@@ -1,6 +1,7 @@
 package org.drulabs.petescafe.di;
 
 import android.app.Application;
+import android.content.Context;
 
 import org.drulabs.petescafe.data.RecipeRepository;
 import org.drulabs.petescafe.data.local.RecipeDAO;
@@ -15,6 +16,8 @@ import dagger.Component;
 public interface AppComponent {
 
     Application getApplication();
+
+    Context getApplicationContext();
 
     RecipeApi getRecipeApi();
 

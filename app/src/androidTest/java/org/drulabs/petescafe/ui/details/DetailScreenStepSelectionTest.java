@@ -22,14 +22,13 @@ import org.junit.runner.RunWith;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.drulabs.petescafe.ui.details.RecipeDetailsActivity.KEY_RECIPE_ID;
 
 @RunWith(AndroidJUnit4.class)
-public class DetailScreenTest {
+public class DetailScreenStepSelectionTest {
 
     @Rule
     public ActivityTestRule<RecipeDetailsActivity> mActivityTestRule = new
@@ -64,17 +63,23 @@ public class DetailScreenTest {
     }
 
     @Test
-    public void testIfOverflowMenuIsVisible() {
-        onView(withId(R.id.menu_item_ingredients))
-                .check(matches(isDisplayed()));
-    }
+    public void testRecipeStepSelection() {
+        int index = 1;
+        // Click on the second recipe step i.e. index = 1
+        onView(withId(R.id.recipe_step_list))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(index, click()));
 
-    @Test
-    public void testIfFirstRecipeStepIsSelectedInitially() {
-        // match recipe description
-        onView(withRecyclerView(R.id.recipe_step_list).atPosition(0))
-                .check(matches(hasDescendant(withText(TestDataGenerator.getMockRecipe()
-                        .getSteps().get(0).getShortDescription()))));
+        onView(withId(R.id.tv_step_position))
+                .check(matches(isDisplayed()));
+
+        String stepPos = "Step " + (index + 1) + " of " + TestDataGenerator.getMockRecipe()
+                .getSteps().size();
+
+        onView(withId(R.id.relativeLayout))
+                .check(matches(isDisplayed()));
+
+        onView(withId(R.id.tv_step_position))
+                .check(matches(isDisplayed()));
     }
 
     @After

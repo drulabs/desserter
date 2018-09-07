@@ -1,6 +1,7 @@
 package org.drulabs.petescafe.di;
 
 import android.app.Application;
+import android.content.Context;
 
 import org.drulabs.petescafe.data.local.RecipeDAO;
 import org.drulabs.petescafe.data.local.RecipeDB;
@@ -26,6 +27,12 @@ public class AppModule {
     @Singleton
     public Application getApplication() {
         return application;
+    }
+
+    @Provides
+    @Singleton
+    public Context getApplicationContext() {
+        return application.getApplicationContext();
     }
 
     @Provides

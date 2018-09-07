@@ -22,6 +22,10 @@ public class HomeVM extends ViewModel {
         return recipeListLiveData;
     }
 
+    public void saveAsCurrentRecipe(Recipe recipe) {
+        repository.saveCurrentRecipeId(recipe.getId());
+    }
+
     @Override
     protected void onCleared() {
         super.onCleared();

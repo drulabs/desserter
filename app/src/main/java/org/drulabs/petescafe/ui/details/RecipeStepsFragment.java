@@ -23,23 +23,28 @@ import java.util.Locale;
 @FragmentStepsScope
 public class RecipeStepsFragment extends Fragment implements StepsAdapter.StepSelectionListener {
     private static final String KEY_CURRENT_STEP_ID = "current_step_id";
+    private static final String KEY_FIRST_LAUNCH = "first_launch";
+    private static final int INITAL_STEP_SELECTION = 0;
 
     private Listener mListener;
     private StepsAdapter adapter;
     private int currentStepId = -1;
     private String strIngredients;
     private String recipeName;
+    private int servings;
 
     DetailVM detailVM;
+    private boolean isFirstLaunch = false;
 
     public RecipeStepsFragment() {
         // Required empty public constructor
     }
 
-    public static RecipeStepsFragment newInstance(int currentStepId) {
+    public static RecipeStepsFragment newInstance(int currentStepId, boolean isFirstLaunch) {
         RecipeStepsFragment fragment = new RecipeStepsFragment();
         Bundle args = new Bundle();
         args.putInt(KEY_CURRENT_STEP_ID, currentStepId);
+        args.putBoolean(KEY_FIRST_LAUNCH, isFirstLaunch);
         fragment.setArguments(args);
         return fragment;
     }
@@ -51,8 +56,10 @@ public class RecipeStepsFragment extends Fragment implements StepsAdapter.StepSe
 
         if (savedInstanceState != null) {
             currentStepId = savedInstanceState.getInt(KEY_CURRENT_STEP_ID);
-        } else if (getArguments() != null && getArguments().containsKey(KEY_CURRENT_STEP_ID)) {
+            isFirstLaunch = false;
+        } else if (getArguments() != null) {
             currentStepId = getArguments().getInt(KEY_CURRENT_STEP_ID);
+            isFirstLaunch = getArguments().getBoolean(KEY_FIRST_LAUNCH);
         }
         adapter = new StepsAdapter(this, currentStepId);
 
@@ -63,12 +70,10 @@ public class RecipeStepsFragment extends Fragment implements StepsAdapter.StepSe
             if (recipe != null && recipe.getSteps() != null) {
                 adapter.setRecipeSteps(recipe.getSteps());
 
-                // select first step by default
-                detailVM.setCurrentStep(recipe.getSteps().get(0));
-
                 List<Ingredient> ingredients = recipe.getIngredients();
 
                 if (ingredients != null && ingredients.size() > 0) {
+                    servings = recipe.getServings();
                     StringBuilder ingredientsAsString = new StringBuilder();
                     ingredientsAsString.append("\n--------------------\n");
                     for (Ingredient ingredient : ingredients) {
@@ -83,6 +88,10 @@ public class RecipeStepsFragment extends Fragment implements StepsAdapter.StepSe
                     strIngredients = ingredientsAsString.toString();
                 }
                 recipeName = recipe.getName();
+
+                if (isFirstLaunch) {
+                    detailVM.setCurrentStep(recipe.getSteps().get(0));
+                }
             }
         });
 
@@ -133,6 +142,7 @@ public class RecipeStepsFragment extends Fragment implements StepsAdapter.StepSe
     public void onStepSelected(RecipeStep step) {
         currentStepId = step.getId();
         detailVM.setCurrentStep(step);
+        detailVM.resetPLaybackPosition();
         mListener.onStepSelected(step);
     }
 
@@ -140,9 +150,10 @@ public class RecipeStepsFragment extends Fragment implements StepsAdapter.StepSe
      * Displays ingredient list in an alert dialog
      */
     void displayIngredients() {
+
         new AlertDialog.Builder(getActivity())
                 .setTitle(String.format(Locale.getDefault(), getString(R.string
-                        .txt_ingredients_format), recipeName))
+                        .txt_ingredients_format), recipeName, servings))
                 .setMessage(strIngredients)
                 .setPositiveButton(R.string.txt_okay, (dialog, which) -> dialog.dismiss())
                 .create()

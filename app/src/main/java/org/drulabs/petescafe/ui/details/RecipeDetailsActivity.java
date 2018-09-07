@@ -41,6 +41,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements
     boolean isLandscape;
 
     private DetailVM detailVM;
+    private boolean isFirstLaunch = false;
 
     // UI elements
     RecipeStepsFragment recipeStepsFragment;
@@ -63,14 +64,19 @@ public class RecipeDetailsActivity extends AppCompatActivity implements
 
         Bundle extras = getIntent().getExtras();
 
+        isFirstLaunch = (savedInstanceState == null);
+
         if (savedInstanceState != null) {
             recipeId = savedInstanceState.getInt(KEY_RECIPE_ID);
             recipeName = savedInstanceState.getString(KEY_RECIPE_NAME);
             currentStepId = savedInstanceState.getInt(KEY_CURRENT_STEP_ID);
             isDetailsOpen = savedInstanceState.getBoolean(KEY_DETAILS_OPEN);
 
-            if (isDetailsOpen && !isLandscape) {
+            if (isDetailsOpen && (!isLandscape || (isLandscape && !isTablet))) {
                 guidelineParams.guidePercent = DETAILS_OPEN;
+                guideline.setLayoutParams(guidelineParams);
+            } else if (!isDetailsOpen && !isTablet) {
+                guidelineParams.guidePercent = DETAILS_CLOSED;
                 guideline.setLayoutParams(guidelineParams);
             }
 
@@ -87,7 +93,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        handlePhoneLandscapeMode();
+        handleLandscapeMode();
 
         DetailComponent component = ((CafeApp) getApplicationContext()).getAppComponent()
                 .getDetailComponent(new DetailsModule(recipeId));
@@ -95,7 +101,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements
         detailVM = ViewModelProviders.of(this, detailVMFactory).get(DetailVM.class);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        recipeStepsFragment = RecipeStepsFragment.newInstance(currentStepId);
+        recipeStepsFragment = RecipeStepsFragment.newInstance(currentStepId, isFirstLaunch);
         stepDescriptionFragment = StepDescriptionFragment.newInstance(currentStepId);
         fragmentManager.beginTransaction()
                 .replace(R.id.fr_steps_frag_holder, recipeStepsFragment, TAG_STEPS_FRAGMENT)
@@ -103,7 +109,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements
                 .commit();
     }
 
-    public void handlePhoneLandscapeMode() {
+    public void handleLandscapeMode() {
         // Make the video full screen on landscape mode for phones
         if (!isTablet && isDetailsOpen && isLandscape) {
             // remove title
