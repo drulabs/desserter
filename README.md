@@ -4,6 +4,20 @@ This sample app is prepared for Udacity's Baking app lesson.
 
 You can download the apk file and play around with the app from [releases](https://github.com/drulabs/desserter/releases) tab. 
 
+## App Screens (Phone)
+
+![Home Screen](docs/img_home_screen.png)
+![Recipe Steps](docs/img_recipe_steps.png)
+![Recipe Details](docs/img_step_details_portrait.png)
+![Recipe Ingredients](docs/img_ingredients.png)
+![Details Landscape](docs/img_step_details_landscape.png)
+![Widget](docs/img_widget.png)
+
+## App Screens (Tablet)
+
+![Tablet Home](docs/img_home_tablet.png)
+![Tablet Details](docs/img_details_tablet.png)
+
 ## Working
 
 The app follows repository pattern and use android architecture components. Libraries used are 
