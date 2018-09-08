@@ -6,17 +6,13 @@ You can download the apk file and play around with the app from [releases](https
 
 ## App Screens (Phone)
 
-![Home Screen](docs/img_home_screen.png)
-![Recipe Steps](docs/img_recipe_steps.png)
-![Recipe Details](docs/img_step_details_portrait.png)
-![Recipe Ingredients](docs/img_ingredients.png)
-![Details Landscape](docs/img_step_details_landscape.png)
-![Widget](docs/img_widget.png)
+<img style="float: left;" src="docs/img_home_screen.png" alt="Home Screen" width="30%"/> __ <img style="float: left;" src="docs/img_recipe_steps.png" alt="Recipe Steps" width="30%"/> __ <img style="float: right;" src="docs/img_step_details_portrait.png" alt="Recipe Details" width="30%"/>
+<img style="float: right;" src="docs/img_ingredients.png" alt="Recipe Ingredients" width="30%"/> __ <img style="float: right;" src="docs/img_widget.png" alt="Widget" width="30%"/>
+<img src="docs/img_step_details_landscape.png" alt="Details Landscape" width="70%"/>
 
 ## App Screens (Tablet)
 
-![Tablet Home](docs/img_home_tablet.png)
-![Tablet Details](docs/img_details_tablet.png)
+<img src="docs/img_home_tablet.png" alt="Tablet Home" width="35%"/> <img src="docs/img_details_tablet.png" alt="Tablet Details" width="60%"/>
 
 ## Working
 
