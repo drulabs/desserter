@@ -25,8 +25,8 @@ public class RecipeDetailsActivity extends AppCompatActivity implements
 
     public static final String KEY_RECIPE_ID = "recipe_id";
     public static final String KEY_RECIPE_NAME = "recipe_name";
+    public static final String KEY_RECIPE_STEP_ID = "recipe_step_id";
 
-    private static final String KEY_CURRENT_STEP_ID = "current_step_id";
     private static final String KEY_DETAILS_OPEN = "details_open";
     private static final float DETAILS_CLOSED = 1.0f;
     private static final float DETAILS_OPEN = 0.0f;
@@ -41,7 +41,6 @@ public class RecipeDetailsActivity extends AppCompatActivity implements
     boolean isLandscape;
 
     private DetailVM detailVM;
-    private boolean isFirstLaunch = false;
 
     // UI elements
     RecipeStepsFragment recipeStepsFragment;
@@ -64,28 +63,33 @@ public class RecipeDetailsActivity extends AppCompatActivity implements
 
         Bundle extras = getIntent().getExtras();
 
-        isFirstLaunch = (savedInstanceState == null);
+        boolean isFirstLaunch = (savedInstanceState == null);
 
         if (savedInstanceState != null) {
             recipeId = savedInstanceState.getInt(KEY_RECIPE_ID);
             recipeName = savedInstanceState.getString(KEY_RECIPE_NAME);
-            currentStepId = savedInstanceState.getInt(KEY_CURRENT_STEP_ID);
+            currentStepId = savedInstanceState.getInt(KEY_RECIPE_STEP_ID);
             isDetailsOpen = savedInstanceState.getBoolean(KEY_DETAILS_OPEN);
-
-            if (isDetailsOpen && (!isLandscape || (isLandscape && !isTablet))) {
-                guidelineParams.guidePercent = DETAILS_OPEN;
-                guideline.setLayoutParams(guidelineParams);
-            } else if (!isDetailsOpen && !isTablet) {
-                guidelineParams.guidePercent = DETAILS_CLOSED;
-                guideline.setLayoutParams(guidelineParams);
-            }
-
         } else if (extras != null && extras.containsKey(KEY_RECIPE_ID)) {
             recipeId = extras.getInt(KEY_RECIPE_ID);
             recipeName = extras.getString(KEY_RECIPE_NAME);
-            currentStepId = INITIAL_STEP_ID;
+            currentStepId = extras.getInt(KEY_RECIPE_STEP_ID);
+            if (currentStepId < 0) {
+                currentStepId = INITIAL_STEP_ID;
+                isDetailsOpen = false;
+            } else {
+                isDetailsOpen = true;
+            }
         } else {
             throw new IllegalArgumentException("Required parameter not passed (recipe_id)");
+        }
+
+        if (isDetailsOpen && (!isLandscape || (isLandscape && !isTablet))) {
+            guidelineParams.guidePercent = DETAILS_OPEN;
+            guideline.setLayoutParams(guidelineParams);
+        } else if (!isDetailsOpen && !isTablet) {
+            guidelineParams.guidePercent = DETAILS_CLOSED;
+            guideline.setLayoutParams(guidelineParams);
         }
 
         if (getSupportActionBar() != null) {
@@ -105,7 +109,8 @@ public class RecipeDetailsActivity extends AppCompatActivity implements
         stepDescriptionFragment = StepDescriptionFragment.newInstance(currentStepId);
         fragmentManager.beginTransaction()
                 .replace(R.id.fr_steps_frag_holder, recipeStepsFragment, TAG_STEPS_FRAGMENT)
-                .replace(R.id.fr_step_details_frag_holder, stepDescriptionFragment, TAG_DETAILS_FRAGMENT)
+                .replace(R.id.fr_step_details_frag_holder, stepDescriptionFragment,
+                        TAG_DETAILS_FRAGMENT)
                 .commit();
     }
 
@@ -151,7 +156,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(KEY_CURRENT_STEP_ID, currentStepId);
+        outState.putInt(KEY_RECIPE_STEP_ID, currentStepId);
         outState.putInt(KEY_RECIPE_ID, recipeId);
         outState.putString(KEY_RECIPE_NAME, recipeName);
         outState.putBoolean(KEY_DETAILS_OPEN, isDetailsOpen);

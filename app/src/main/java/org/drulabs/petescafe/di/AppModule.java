@@ -3,6 +3,7 @@ package org.drulabs.petescafe.di;
 import android.app.Application;
 import android.content.Context;
 
+import org.drulabs.petescafe.data.RecipeRepository;
 import org.drulabs.petescafe.data.local.RecipeDAO;
 import org.drulabs.petescafe.data.local.RecipeDB;
 import org.drulabs.petescafe.data.remote.RecipeApi;
@@ -45,5 +46,11 @@ public class AppModule {
     @Singleton
     RecipeDAO getRecipeDAO() {
         return RecipeDB.getINSTANCE(application).getRecipeDAO();
+    }
+
+    @Provides
+    @Singleton
+    RecipeRepository getRecipeRepository(Context context, RecipeApi recipeApi, RecipeDAO recipeDAO) {
+        return new RecipeRepository(context, recipeApi, recipeDAO);
     }
 }

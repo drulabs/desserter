@@ -17,6 +17,10 @@
         <item name="android:layout_marginEnd">@dimen/margin_large</item>
     </style>
 
+    <style name="remote_recipe_name_style" parent="recipe_name_style">
+        <item name="android:textSize">@dimen/txt_remote_regular</item>
+    </style>
+
     <style name="recipe_step_style">
         <item name="android:textSize">@dimen/txt_regular</item>
         <item name="android:textColor">@color/textPrimary</item>
@@ -26,4 +30,7 @@
         <item name="android:layout_marginEnd">@dimen/margin_large</item>
     </style>
 
+    <style name="remote_recipe_ingredient" parent="recipe_step_style">
+        <item name="android:textSize">@dimen/txt_remote_small</item>
+    </style>
 </resources>

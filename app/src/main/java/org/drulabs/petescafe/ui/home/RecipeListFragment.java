@@ -17,6 +17,7 @@ import org.drulabs.petescafe.data.model.Recipe;
 import org.drulabs.petescafe.di.DaggerViewComponent;
 import org.drulabs.petescafe.di.ViewComponent;
 import org.drulabs.petescafe.utils.Constants;
+import org.drulabs.petescafe.widget.RecipeWidgetProvider;
 
 import java.util.Collections;
 
@@ -116,6 +117,7 @@ public class RecipeListFragment extends Fragment implements RecipeListAdapter.Re
     @Override
     public void onTapped(Recipe recipe) {
         homeVM.saveAsCurrentRecipe(recipe);
+        RecipeWidgetProvider.updateWidgets(getActivity());
         mListener.onRecipeSelected(recipe);
     }
 

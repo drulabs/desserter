@@ -24,6 +24,8 @@ public class RecipeRepository {
     private static final String TAG = "Repository";
     private static final String PREFS_NAME = "prefs_repository";
     private static final String KEY_PREFS_RECIPE_ID = "current_recipe_id";
+    private static final String KEY_PREFS_RECIPE_STEP_ID = "current_recipe_step_id";
+    private static final String KEY_PREFS_RECIPE_NAME = "current_recipe_name";
 
     private long lastCacheFetched = 0;
 
@@ -37,7 +39,7 @@ public class RecipeRepository {
     private CompositeDisposable disposables;
 
     @Inject
-    RecipeRepository(Context context, RecipeApi recipeApi, RecipeDAO recipeDAO) {
+    public RecipeRepository(Context context, RecipeApi recipeApi, RecipeDAO recipeDAO) {
         this.recipeApi = recipeApi;
         this.recipeDAO = recipeDAO;
 
@@ -87,20 +89,55 @@ public class RecipeRepository {
      *
      * @param recipeId id of the {@link Recipe} to be saved
      */
-    public void saveCurrentRecipeId(int recipeId) {
+    public void saveCurrentRecipeId(int recipeId, String recipeName) {
         preferences.edit()
                 .putInt(KEY_PREFS_RECIPE_ID, recipeId)
+                .putInt(KEY_PREFS_RECIPE_STEP_ID, 0)
+                .putString(KEY_PREFS_RECIPE_NAME, recipeName)
+                .apply();
+    }
+
+    public String getSavedRecipeName() {
+        return preferences.getString(KEY_PREFS_RECIPE_NAME, null);
+    }
+
+    /**
+     * Saves a recipe's step id in preferences
+     *
+     * @param recipeStepId id of the {@link Recipe} to be saved
+     */
+    public void saveRecipeStepId(int recipeStepId) {
+        preferences.edit()
+                .putInt(KEY_PREFS_RECIPE_STEP_ID, recipeStepId)
                 .apply();
     }
 
     /**
-     * Retrieves the recipe saved via {@link RecipeRepository#saveCurrentRecipeId(int)}
+     * Gets a recipe's step id from preferences
+     *
+     * @return stepId if found, else -1
+     */
+    public int getRecipeStepId() {
+        return preferences.getInt(KEY_PREFS_RECIPE_STEP_ID, -1);
+    }
+
+    /**
+     * Gets a recipe's id from preferences
+     *
+     * @return recipeId if found, else -1
+     */
+    public int getSavedRecipeId() {
+        return preferences.getInt(KEY_PREFS_RECIPE_ID, -1);
+    }
+
+    /**
+     * Retrieves the recipe saved via {@link RecipeRepository#saveCurrentRecipeId(int, String)}
      *
      * @return the saved {@link Recipe} or null if not found
      */
-    public LiveData<Recipe> getSavedRecipe() {
+    public Recipe getSavedRecipe() {
         int recipeId = preferences.getInt(KEY_PREFS_RECIPE_ID, 0);
-        return recipeDAO.getRecipe(recipeId);
+        return recipeDAO.getRecipeSync(recipeId);
     }
 
     /**
@@ -123,5 +160,10 @@ public class RecipeRepository {
         if (!disposables.isDisposed()) {
             disposables.dispose();
         }
+    }
+
+    // Clear preferences that stores app widget data
+    public void clearWidgetData() {
+        this.preferences.edit().clear().apply();
     }
 }

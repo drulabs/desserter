@@ -10,4 +10,11 @@
     <string name="txt_ingredients_format">Ingredients for %s (%d servings)</string>
     <string name="txt_okay">Okay</string>
     <string name="txt_servings">For %d servings</string>
+    <string name="appwidget_text">No recipe viewed yet. Tap to get started</string>
+    <string name="add_widget">Add widget</string>
+    <string name="remote_clear_status">Resets widget status</string>
+    <string name="txt_background_image_widget">Widget background</string>
+    <string name="txt_remote_status">Step %d</string>
+    <string name="txt_ingredient_display">%s - %f %s</string>
+    <string name="txt_continue">Go</string>
 </resources>

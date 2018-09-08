@@ -1,0 +1,112 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/widget_margin">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/txt_background_image_widget"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_widget" />
+
+    <TextView
+        android:id="@+id/appwidget_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/margin_large"
+        android:contentDescription="@string/appwidget_text"
+        android:gravity="center"
+        android:text="@string/appwidget_text"
+        android:textColor="@color/textPrimary"
+        android:textSize="@dimen/txt_regular"
+        android:textStyle="bold|italic"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/rl_remote_widget_holder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/remote_recipe_name"
+            style="@style/remote_recipe_name_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@+id/remote_clear_status"
+            tools:text="Yellow Cake" />
+
+        <TextView
+            android:id="@+id/remote_status"
+            style="@style/remote_recipe_ingredient"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/remote_recipe_name"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_toStartOf="@+id/remote_status_continue"
+            tools:text="You are on step 5" />
+
+        <TextView
+            android:id="@+id/remote_status_continue"
+            style="@style/remote_recipe_ingredient"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/remote_recipe_name"
+            android:layout_marginStart="@dimen/margin_large"
+            android:layout_marginTop="@dimen/margin_small"
+            android:drawableEnd="@drawable/ic_next_arrow"
+            android:gravity="center"
+            android:text="@string/txt_continue" />
+
+        <!--Simple separator. Since a view can't be used in widgets, using FrameLayout-->
+        <FrameLayout
+            android:id="@+id/status_separator"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_below="@+id/remote_status"
+            android:layout_marginEnd="@dimen/margin_medium"
+            android:layout_marginStart="@dimen/margin_medium"
+            android:layout_marginTop="@dimen/margin_small"
+            android:background="@color/colorPrimaryLight" />
+
+        <ImageButton
+            android:id="@+id/remote_clear_status"
+            android:layout_width="@dimen/box_small"
+            android:layout_height="@dimen/box_small"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="@dimen/margin_medium"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:background="@color/colorPrimary"
+            android:contentDescription="@string/remote_clear_status"
+            android:onClick="ddd"
+            android:src="@drawable/ic_refresh" />
+
+        <TextView
+            android:id="@+id/remote_label_ingredients"
+            style="@style/remote_recipe_ingredient"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/status_separator"
+            android:layout_marginTop="@dimen/margin_small"
+            android:text="@string/txt_ingredients" />
+
+        <ListView
+            android:id="@+id/remote_list_ingredient"
+            style="@style/recipe_step_style"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/remote_label_ingredients"
+            android:layout_marginTop="@dimen/margin_small"
+            tools:text="ingredients go here">
+
+        </ListView>
+    </RelativeLayout>
+</FrameLayout>

@@ -10,6 +10,7 @@ import org.drulabs.petescafe.data.model.RecipeStep;
 
 public class DetailVM extends ViewModel {
 
+    private RecipeRepository repository;
     private final LiveData<Recipe> recipe;
 
     private final MutableLiveData<RecipeStep> currentStep;
@@ -19,6 +20,7 @@ public class DetailVM extends ViewModel {
     private boolean playing = false;
 
     DetailVM(RecipeRepository repository, int recipeId) {
+        this.repository = repository;
         recipe = repository.getRecipe(recipeId);
         currentStep = new MutableLiveData<>();
         stepStateHolder = new MutableLiveData<>();
@@ -38,6 +40,7 @@ public class DetailVM extends ViewModel {
 
     void setCurrentStep(RecipeStep step) {
         this.currentStep.postValue(step);
+        this.repository.saveRecipeStepId(step.getId());
     }
 
     void nextStep(int currentStepId) {

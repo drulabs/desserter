@@ -16,6 +16,7 @@ import org.drulabs.petescafe.R;
 import org.drulabs.petescafe.data.model.Ingredient;
 import org.drulabs.petescafe.data.model.RecipeStep;
 import org.drulabs.petescafe.di.FragmentStepsScope;
+import org.drulabs.petescafe.widget.RecipeWidgetProvider;
 
 import java.util.List;
 import java.util.Locale;
@@ -84,13 +85,12 @@ public class RecipeStepsFragment extends Fragment implements StepsAdapter.StepSe
                         ingredientsAsString.append(ingredient.getMeasure());
                         ingredientsAsString.append("\n--------------------\n");
                     }
-
                     strIngredients = ingredientsAsString.toString();
                 }
                 recipeName = recipe.getName();
 
                 if (isFirstLaunch) {
-                    detailVM.setCurrentStep(recipe.getSteps().get(0));
+                    detailVM.setCurrentStep(recipe.getSteps().get(currentStepId));
                 }
             }
         });
@@ -101,6 +101,7 @@ public class RecipeStepsFragment extends Fragment implements StepsAdapter.StepSe
                 currentStepId = stepId;
                 adapter.setCurrentStepId(currentStepId);
                 detailVM.setCurrentStep(adapter.getCurrentStep());
+                RecipeWidgetProvider.updateWidgets(getActivity());
             }
         });
     }
@@ -144,13 +145,13 @@ public class RecipeStepsFragment extends Fragment implements StepsAdapter.StepSe
         detailVM.setCurrentStep(step);
         detailVM.resetPLaybackPosition();
         mListener.onStepSelected(step);
+        RecipeWidgetProvider.updateWidgets(getActivity());
     }
 
     /**
      * Displays ingredient list in an alert dialog
      */
     void displayIngredients() {
-
         new AlertDialog.Builder(getActivity())
                 .setTitle(String.format(Locale.getDefault(), getString(R.string
                         .txt_ingredients_format), recipeName, servings))

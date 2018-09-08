@@ -19,6 +19,10 @@ public class HomeScreen extends AppCompatActivity implements RecipeListFragment
 
     private static final String TAG = "HomeScreen";
 
+    public static final String EXTRA_RECIPE_ID = "recipe_id";
+    public static final String EXTRA_STEP_ID = "recipe_step_id";
+    public static final String EXTRA_RECIPE_NAME = "recipe_name";
+
     // The Idling Resource which will be null in production.
     @Nullable
     private SimpleIdlingResource mIdlingResource;
@@ -48,6 +52,20 @@ public class HomeScreen extends AppCompatActivity implements RecipeListFragment
         }
 
         setContentView(R.layout.activity_home_screen);
+
+        Bundle extras = getIntent().getExtras();
+        // This checks if the app was launched from continue button on widget
+        if (extras != null) {
+            int recipeId = extras.getInt(EXTRA_RECIPE_ID);
+            int stepId = extras.getInt(EXTRA_STEP_ID);
+            String recipeName = extras.getString(EXTRA_RECIPE_NAME);
+
+            Intent detailsIntent = new Intent(this, RecipeDetailsActivity.class);
+            detailsIntent.putExtra(RecipeDetailsActivity.KEY_RECIPE_ID, recipeId);
+            detailsIntent.putExtra(RecipeDetailsActivity.KEY_RECIPE_NAME, recipeName);
+            detailsIntent.putExtra(RecipeDetailsActivity.KEY_RECIPE_STEP_ID, stepId);
+            startActivity(detailsIntent);
+        }
     }
 
     @Override
@@ -56,6 +74,7 @@ public class HomeScreen extends AppCompatActivity implements RecipeListFragment
         Intent detailsIntent = new Intent(this, RecipeDetailsActivity.class);
         detailsIntent.putExtra(RecipeDetailsActivity.KEY_RECIPE_ID, recipe.getId());
         detailsIntent.putExtra(RecipeDetailsActivity.KEY_RECIPE_NAME, recipe.getName());
+        detailsIntent.putExtra(RecipeDetailsActivity.KEY_RECIPE_STEP_ID, -1);
         startActivity(detailsIntent);
     }
 

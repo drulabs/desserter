@@ -11,11 +11,21 @@
     <dimen name="txt_large">30sp</dimen>
     <dimen name="txt_regular">20sp</dimen>
     <dimen name="txt_medium">16sp</dimen>
+    <dimen name="txt_small">14sp</dimen>
+    <dimen name="txt_remote_regular">24sp</dimen>
+    <dimen name="txt_remote_small">16sp</dimen>
 
     // Box
     <dimen name="box_medium">60dp</dimen>
+    <dimen name="box_small">40dp</dimen>
 
     // misc
     <dimen name="recipe_card_height">150dp</dimen>
     <dimen name="recipe_step_height">150dp</dimen>
+
+    <!--
+Refer to App Widget Documentation for margin information
+http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
+    -->
+    <dimen name="widget_margin">8dp</dimen>
 </resources>

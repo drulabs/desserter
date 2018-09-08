@@ -23,7 +23,7 @@ public class HomeVM extends ViewModel {
     }
 
     public void saveAsCurrentRecipe(Recipe recipe) {
-        repository.saveCurrentRecipeId(recipe.getId());
+        repository.saveCurrentRecipeId(recipe.getId(), recipe.getName());
     }
 
     @Override

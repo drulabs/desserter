@@ -23,6 +23,8 @@ public interface AppComponent {
 
     RecipeDAO getRecipeDao();
 
+    RecipeRepository getRecipeRepository();
+
     DetailComponent getDetailComponent(DetailsModule detailsModule);
 
 }
