@@ -18,6 +18,7 @@
     // Box
     <dimen name="box_medium">60dp</dimen>
     <dimen name="box_small">40dp</dimen>
+    <dimen name="box_big">120dp</dimen>
 
     // misc
     <dimen name="recipe_card_height">150dp</dimen>

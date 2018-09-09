@@ -81,5 +81,10 @@ public class WidgetUpdateService extends IntentService {
         int[] widgetIds = widgetManager.getAppWidgetIds(new ComponentName(this,
                 RecipeWidgetProvider.class));
         RecipeWidgetProvider.updateAppWidgets(getApplicationContext(), widgetManager, widgetIds);
+
+        int[] stepWidgetIds = widgetManager.getAppWidgetIds(new ComponentName(this,
+                StepWidgetProvider.class));
+        StepWidgetProvider.updateAppWidgets(getApplicationContext(), widgetManager, stepWidgetIds);
+
     }
 }

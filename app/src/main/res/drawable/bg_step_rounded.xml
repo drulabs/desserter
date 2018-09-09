@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/recipeStepColor" />
+    <solid android:color="@color/colorPrimary" />
     <corners android:radius="@dimen/margin_medium" />
     <stroke
         android:width="2dp"
-        android:color="@color/colorPrimaryDark" />
+        android:color="@color/colorAccent" />
 </shape>

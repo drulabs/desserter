@@ -16,7 +16,7 @@ import org.drulabs.petescafe.R;
 import org.drulabs.petescafe.data.model.Ingredient;
 import org.drulabs.petescafe.data.model.RecipeStep;
 import org.drulabs.petescafe.di.FragmentStepsScope;
-import org.drulabs.petescafe.widget.RecipeWidgetProvider;
+import org.drulabs.petescafe.widget.WidgetUpdateService;
 
 import java.util.List;
 import java.util.Locale;
@@ -101,7 +101,7 @@ public class RecipeStepsFragment extends Fragment implements StepsAdapter.StepSe
                 currentStepId = stepId;
                 adapter.setCurrentStepId(currentStepId);
                 detailVM.setCurrentStep(adapter.getCurrentStep());
-                RecipeWidgetProvider.updateWidgets(getActivity());
+                WidgetUpdateService.startWidgetUpdate(getActivity());
             }
         });
     }
@@ -145,7 +145,7 @@ public class RecipeStepsFragment extends Fragment implements StepsAdapter.StepSe
         detailVM.setCurrentStep(step);
         detailVM.resetPLaybackPosition();
         mListener.onStepSelected(step);
-        RecipeWidgetProvider.updateWidgets(getActivity());
+        WidgetUpdateService.startWidgetUpdate(getActivity());
     }
 
     /**
