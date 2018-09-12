@@ -13,7 +13,7 @@
     <dimen name="txt_medium">16sp</dimen>
     <dimen name="txt_small">14sp</dimen>
     <dimen name="txt_remote_regular">24sp</dimen>
-    <dimen name="txt_remote_small">16sp</dimen>
+    <dimen name="txt_remote_small">20sp</dimen>
 
     // Box
     <dimen name="box_medium">60dp</dimen>

@@ -44,9 +44,10 @@ public class RecipeWidgetProvider extends AppWidgetProvider {
             String recipeName = recipeRepository.getSavedRecipeName();
             int stepId = recipeRepository.getRecipeStepId();
 
-            Intent intent = new Intent(context, RecipeWidgetService.class);
-            intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
-            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+            Intent widgetServiceIntent = new Intent(context, RecipeWidgetService.class);
+            widgetServiceIntent.setData(Uri.parse(widgetServiceIntent.toUri(Intent
+                    .URI_INTENT_SCHEME)));
+            widgetServiceIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
 
             // launch app when empty widget is clicked
             Intent appOpenIntent = new Intent(context, HomeScreen.class);
@@ -62,10 +63,9 @@ public class RecipeWidgetProvider extends AppWidgetProvider {
                 views.setTextViewText(R.id.remote_recipe_name, recipeName);
 
                 // Intent to clear widget data
-                Intent refreshIntent = new Intent(context, RecipeWidgetProvider.class);
-                refreshIntent.setAction(ACTION_WIDGET_REFRESH);
+                Intent refreshIntent = new Intent(ACTION_WIDGET_REFRESH);
                 PendingIntent refreshPI = PendingIntent.getBroadcast(context,
-                        0, refreshIntent, 0);
+                        0, refreshIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 views.setOnClickPendingIntent(R.id.remote_clear_status, refreshPI);
 
                 // Intent to launch app with step displayed in the widget
@@ -78,7 +78,7 @@ public class RecipeWidgetProvider extends AppWidgetProvider {
                 views.setOnClickPendingIntent(R.id.remote_status_continue, continuePI);
 
                 // Update widget only when saved recipe is found
-                views.setRemoteAdapter(R.id.remote_list_ingredient, intent);
+                views.setRemoteAdapter(R.id.remote_list_ingredient, widgetServiceIntent);
                 views.setViewVisibility(R.id.rl_remote_widget_holder, View.VISIBLE);
                 views.setViewVisibility(R.id.appwidget_text, View.GONE);
             } else {

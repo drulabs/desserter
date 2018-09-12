@@ -19,4 +19,6 @@
     <string name="txt_continue">Go</string>
     <string name="step_widget_preview">Recipe preview</string>
     <string name="step_recpice_display">%s \n (step %d)</string>
+    <string name="configure">Configure</string>
+    <string name="txt_widget_error">Error loading widget</string>
 </resources>

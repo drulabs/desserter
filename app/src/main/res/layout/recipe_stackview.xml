@@ -1,0 +1,23 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fr_step_stack_holder"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/widget_margin">
+
+    <StackView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/sv_step_stack"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/widget_margin" />
+
+    <TextView
+        android:id="@+id/tv_step_stack_msg"
+        style="@style/recipe_step_style"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/txt_widget_error"
+        android:textColor="@color/colorAccent"
+        android:visibility="gone" />
+</FrameLayout>
