@@ -32,11 +32,13 @@ public class StepWidgetService extends RemoteViewsService {
         private Context context;
         private List<Recipe> recipes;
         private RecipeRepository recipeRepository;
+        private int appWidgetId;
 
         IngredientFactory(Context applicationContext, Intent intent) {
             context = applicationContext;
             AppComponent appComponent = ((CafeApp) context.getApplicationContext())
                     .getAppComponent();
+            appWidgetId = intent.getIntExtra(EXTRA_WIDGET_ID, -1);
 
             recipeRepository = appComponent.getRecipeRepository();
         }
@@ -71,11 +73,6 @@ public class StepWidgetService extends RemoteViewsService {
             rv.setImageViewResource(R.id.img_step_cake_resource, WidgetUtils
                     .getDrawableResId(recipe.getName()));
 
-//            boolean isOddPosition = (position % 2 == 0);
-//            rv.setInt(R.id.rl_step_widget_holder, "setBackgroundColor",
-//                    isOddPosition ? Color.parseColor("#DDEC862E") : Color.parseColor
-//                            ("#DD43A715"));
-
             // Set fill in Intent
             Intent fillInIntent = new Intent();
             Bundle extras = new Bundle();
@@ -91,9 +88,6 @@ public class StepWidgetService extends RemoteViewsService {
 
         @Override
         public RemoteViews getLoadingView() {
-            // TODO This is an intended comment by Kaushal (handle this later)
-            // You can create a custom loading view (for instance when getViewAt() is slow.) If you
-            // return null here, you will get the default loading view.
             return null;
         }
 

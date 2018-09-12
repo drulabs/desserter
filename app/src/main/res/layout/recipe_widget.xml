@@ -85,7 +85,6 @@
             android:layout_marginTop="@dimen/margin_medium"
             android:background="@color/colorPrimary"
             android:contentDescription="@string/remote_clear_status"
-            android:onClick="ddd"
             android:src="@drawable/ic_refresh" />
 
         <TextView
