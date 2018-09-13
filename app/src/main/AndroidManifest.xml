@@ -27,7 +27,7 @@
             android:name=".ui.details.RecipeDetailsActivity"
             android:parentActivityName=".ui.home.HomeScreen" />
 
-        <receiver android:name=".widget.RecipeWidgetProvider">
+        <receiver android:name=".widget.status.RecipeStatusProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="org.drulabs.petescafe.widget.REFRESH" />
@@ -38,23 +38,23 @@
         </receiver>
 
         <service
-            android:name=".widget.RecipeWidgetService"
+            android:name=".widget.status.RecipeStatusService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
         <service
-            android:name=".widget.StepWidgetService"
+            android:name=".widget.stack.RecipeStackService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
         <service
             android:name=".widget.WidgetUpdateService"
             android:exported="false" />
 
-        <receiver android:name=".widget.StepWidgetProvider">
+        <receiver android:name=".widget.stack.RecipeStackProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
 
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/step_widget_info" />
+                android:resource="@xml/stack_widget_info" />
         </receiver>
     </application>
 

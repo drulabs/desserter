@@ -9,6 +9,8 @@ import android.content.Intent;
 import org.drulabs.petescafe.app.CafeApp;
 import org.drulabs.petescafe.data.RecipeRepository;
 import org.drulabs.petescafe.di.AppComponent;
+import org.drulabs.petescafe.widget.stack.RecipeStackProvider;
+import org.drulabs.petescafe.widget.status.RecipeStatusProvider;
 
 /**
  * An {@link IntentService} subclass for updating widgets in on a separate handler thread.
@@ -79,12 +81,12 @@ public class WidgetUpdateService extends IntentService {
     private void handleWidgetUpdate() {
         AppWidgetManager widgetManager = AppWidgetManager.getInstance(this);
         int[] widgetIds = widgetManager.getAppWidgetIds(new ComponentName(this,
-                RecipeWidgetProvider.class));
-        RecipeWidgetProvider.updateAppWidgets(getApplicationContext(), widgetManager, widgetIds);
+                RecipeStatusProvider.class));
+        RecipeStatusProvider.updateAppWidgets(getApplicationContext(), widgetManager, widgetIds);
 
         int[] stepWidgetIds = widgetManager.getAppWidgetIds(new ComponentName(this,
-                StepWidgetProvider.class));
-        StepWidgetProvider.updateAppWidgets(getApplicationContext(), widgetManager, stepWidgetIds);
+                RecipeStackProvider.class));
+        RecipeStackProvider.updateAppWidgets(getApplicationContext(), widgetManager, stepWidgetIds);
 
     }
 }
