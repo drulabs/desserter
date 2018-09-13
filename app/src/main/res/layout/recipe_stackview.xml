@@ -16,8 +16,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
+        android:background="@color/textPrimary"
         android:gravity="center"
         android:text="@string/txt_widget_error"
         android:textColor="@color/colorAccent"
+        android:textStyle="bold|italic"
         android:visibility="gone" />
 </FrameLayout>

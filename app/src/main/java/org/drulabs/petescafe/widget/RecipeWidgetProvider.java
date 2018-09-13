@@ -52,8 +52,8 @@ public class RecipeWidgetProvider extends AppWidgetProvider {
             // launch app when empty widget is clicked
             Intent appOpenIntent = new Intent(context, HomeScreen.class);
             PendingIntent appOpenPI = PendingIntent.getActivity(context,
-                    CODE_ACTION_START, appOpenIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-            views.setOnClickPendingIntent(R.id.appwidget_text, appOpenPI);
+                    appWidgetId, appOpenIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            views.setOnClickPendingIntent(R.id.tv_step_stack_msg, appOpenPI);
 
             if (recipeName != null) {
                 views.setTextViewText(R.id.remote_status,
@@ -88,8 +88,6 @@ public class RecipeWidgetProvider extends AppWidgetProvider {
 
             // Instruct the widget manager to update the widget
             appWidgetManager.updateAppWidget(appWidgetId, views);
-
-            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.remote_list_ingredient);
         } catch (Exception e) {
             e.printStackTrace();
         }

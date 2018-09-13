@@ -9,9 +9,9 @@ import retrofit2.http.GET;
 
 public interface RecipeApi {
 
-    String BASE_URL = "https://d17h27t6h515a5.cloudfront.net/topher/";
+    String BASE_URL = "https://drulabs.github.io/";
 
-    @GET("2017/May/59121517_baking/baking.json")
+    @GET("static/json/bakethecake.json")
     Single<List<Recipe>> fetchRecipes();
 
 }

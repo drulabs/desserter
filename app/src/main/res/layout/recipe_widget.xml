@@ -38,6 +38,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_toStartOf="@+id/remote_clear_status"
+            android:textStyle="bold"
             tools:text="Yellow Cake" />
 
         <TextView
@@ -49,6 +50,7 @@
             android:layout_below="@+id/remote_recipe_name"
             android:layout_marginTop="@dimen/margin_small"
             android:layout_toStartOf="@+id/remote_status_continue"
+            android:textStyle="bold"
             tools:text="You are on step 5" />
 
         <TextView

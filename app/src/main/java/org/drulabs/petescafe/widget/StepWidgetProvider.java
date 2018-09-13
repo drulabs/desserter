@@ -37,6 +37,12 @@ public class StepWidgetProvider extends AppWidgetProvider {
                 0, stackItemClickIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         views.setPendingIntentTemplate(R.id.sv_step_stack, stackItemPI);
 
+        // launch app when empty widget is clicked
+        Intent appOpenIntent = new Intent(context, HomeScreen.class);
+        PendingIntent appOpenPI = PendingIntent.getActivity(context,
+                0, appOpenIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        views.setOnClickPendingIntent(R.id.appwidget_text, appOpenPI);
+
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }

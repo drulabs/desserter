@@ -2,12 +2,13 @@ package org.drulabs.petescafe.widget;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
+import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
+
+import com.squareup.picasso.Picasso;
 
 import org.drulabs.petescafe.R;
 import org.drulabs.petescafe.app.CafeApp;
@@ -16,6 +17,7 @@ import org.drulabs.petescafe.data.model.Recipe;
 import org.drulabs.petescafe.di.AppComponent;
 import org.drulabs.petescafe.ui.home.HomeScreen;
 
+import java.io.IOException;
 import java.util.List;
 
 public class StepWidgetService extends RemoteViewsService {
@@ -70,8 +72,6 @@ public class StepWidgetService extends RemoteViewsService {
             RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout
                     .step_widget);
             rv.setTextViewText(R.id.step_recipe_name, recipe.getName());
-            rv.setImageViewResource(R.id.img_step_cake_resource, WidgetUtils
-                    .getDrawableResId(recipe.getName()));
 
             // Set fill in Intent
             Intent fillInIntent = new Intent();
@@ -80,6 +80,14 @@ public class StepWidgetService extends RemoteViewsService {
             extras.putInt(HomeScreen.EXTRA_RECIPE_ID, recipe.getId());
             extras.putInt(HomeScreen.EXTRA_STEP_ID, -1);
             fillInIntent.putExtras(extras);
+
+            // Load the image from url into image view
+            try {
+                Bitmap recipeBitmap = Picasso.get().load(recipe.getImage()).get();
+                rv.setImageViewBitmap(R.id.img_step_cake_resource, recipeBitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
             rv.setOnClickFillInIntent(R.id.rl_step_widget_holder, fillInIntent);
 
