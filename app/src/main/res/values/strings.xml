@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Pete\'s cafe</string>
+    <string name="app_name">Bake that cake</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -17,4 +17,8 @@
     <string name="txt_remote_status">Step %d</string>
     <string name="txt_ingredient_display">%s - %f %s</string>
     <string name="txt_continue">Go</string>
+    <string name="step_widget_preview">Recipe preview</string>
+    <string name="step_recpice_display">%s \n (step %d)</string>
+    <string name="configure">Configure</string>
+    <string name="txt_widget_error">Error loading widget</string>
 </resources>

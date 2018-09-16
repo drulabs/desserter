@@ -1,4 +1,4 @@
-package org.drulabs.petescafe.widget;
+package org.drulabs.petescafe.widget.status;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -14,13 +14,14 @@ import org.drulabs.petescafe.app.CafeApp;
 import org.drulabs.petescafe.data.RecipeRepository;
 import org.drulabs.petescafe.di.AppComponent;
 import org.drulabs.petescafe.ui.home.HomeScreen;
+import org.drulabs.petescafe.widget.WidgetUpdateService;
 
 import java.util.Locale;
 
 /**
  * Implementation of App Widget functionality.
  */
-public class RecipeWidgetProvider extends AppWidgetProvider {
+public class RecipeStatusProvider extends AppWidgetProvider {
 
     private static final String ACTION_WIDGET_REFRESH = "org.drulabs.petescafe.widget.REFRESH";
     private static final int CODE_ACTION_REFRESH = 3;
@@ -44,15 +45,16 @@ public class RecipeWidgetProvider extends AppWidgetProvider {
             String recipeName = recipeRepository.getSavedRecipeName();
             int stepId = recipeRepository.getRecipeStepId();
 
-            Intent intent = new Intent(context, RecipeWidgetService.class);
-            intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
-            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+            Intent widgetServiceIntent = new Intent(context, RecipeStatusService.class);
+            widgetServiceIntent.setData(Uri.parse(widgetServiceIntent.toUri(Intent
+                    .URI_INTENT_SCHEME)));
+            widgetServiceIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
 
             // launch app when empty widget is clicked
             Intent appOpenIntent = new Intent(context, HomeScreen.class);
             PendingIntent appOpenPI = PendingIntent.getActivity(context,
-                    CODE_ACTION_START, appOpenIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-            views.setOnClickPendingIntent(R.id.appwidget_text, appOpenPI);
+                    appWidgetId, appOpenIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            views.setOnClickPendingIntent(R.id.tv_step_stack_msg, appOpenPI);
 
             if (recipeName != null) {
                 views.setTextViewText(R.id.remote_status,
@@ -62,10 +64,9 @@ public class RecipeWidgetProvider extends AppWidgetProvider {
                 views.setTextViewText(R.id.remote_recipe_name, recipeName);
 
                 // Intent to clear widget data
-                Intent refreshIntent = new Intent(context, RecipeWidgetProvider.class);
-                refreshIntent.setAction(ACTION_WIDGET_REFRESH);
+                Intent refreshIntent = new Intent(ACTION_WIDGET_REFRESH);
                 PendingIntent refreshPI = PendingIntent.getBroadcast(context,
-                        0, refreshIntent, 0);
+                        0, refreshIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 views.setOnClickPendingIntent(R.id.remote_clear_status, refreshPI);
 
                 // Intent to launch app with step displayed in the widget
@@ -78,7 +79,7 @@ public class RecipeWidgetProvider extends AppWidgetProvider {
                 views.setOnClickPendingIntent(R.id.remote_status_continue, continuePI);
 
                 // Update widget only when saved recipe is found
-                views.setRemoteAdapter(R.id.remote_list_ingredient, intent);
+                views.setRemoteAdapter(R.id.remote_list_ingredient, widgetServiceIntent);
                 views.setViewVisibility(R.id.rl_remote_widget_holder, View.VISIBLE);
                 views.setViewVisibility(R.id.appwidget_text, View.GONE);
             } else {
@@ -88,8 +89,6 @@ public class RecipeWidgetProvider extends AppWidgetProvider {
 
             // Instruct the widget manager to update the widget
             appWidgetManager.updateAppWidget(appWidgetId, views);
-
-            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.remote_list_ingredient);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -127,10 +126,6 @@ public class RecipeWidgetProvider extends AppWidgetProvider {
     @Override
     public void onDisabled(Context context) {
         // Enter relevant functionality for when the last widget is disabled
-    }
-
-    public static void updateWidgets(Context context) {
-        WidgetUpdateService.startWidgetUpdate(context);
     }
 }
 

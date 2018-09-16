@@ -75,6 +75,14 @@ public class RecipeRepository {
     }
 
     /**
+     * Gives a {@link Recipe} list and refreshes cache if necessary. Should not be performed on
+     * main thread
+     */
+    public List<Recipe> getRecipesSync() {
+        return recipeDAO.getRecipesSync();
+    }
+
+    /**
      * Gets a single {@link Recipe} based on recipe id
      *
      * @param recipeId id of the {@link Recipe}

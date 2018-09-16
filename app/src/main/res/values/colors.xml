@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#C43434</color>
-    <color name="colorPrimaryDark">#9E2424</color>
-    <color name="colorPrimaryLight">#C4BCBC</color>
-    <color name="colorAccent">#D2691E</color>
-    <color name="colorAccentLight">#EE995D</color>
-
-    <color name="recipeCardColor">#C72C48</color>
-    <color name="recipeStepColor">#D2691E</color>
+    <color name="colorPrimary">#4FAE9E</color>
+    <color name="colorPrimaryDark">#256056</color>
+    <color name="colorPrimaryLight">#9FE3D8</color>
+    <color name="colorAccent">#2C7CBD</color>
+    <color name="colorAccentLight">#59ACEF</color>
 
     <!-- Text related-->
     <color name="textPrimary">#EFEFEF</color>

@@ -1,4 +1,4 @@
-package org.drulabs.petescafe.widget;
+package org.drulabs.petescafe.widget.status;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +15,7 @@ import org.drulabs.petescafe.di.AppComponent;
 
 import java.util.List;
 
-public class RecipeWidgetService extends RemoteViewsService {
+public class RecipeStatusService extends RemoteViewsService {
 
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {

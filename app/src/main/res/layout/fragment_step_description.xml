@@ -78,7 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/txt_regular"
             tools:ignore="RelativeOverlap"
             tools:text="Step 1 of 8" />
